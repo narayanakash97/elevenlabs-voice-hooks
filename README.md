@@ -23,11 +23,19 @@ flowchart LR
 - Reads the text after the last `Spoken summary:` marker.
 - Turns speech on or off with `voice on` and `voice off` in Claude Code.
 - Keeps the API key in macOS Keychain.
-- Falls back to the Mac's built-in `say` voice if key lookup or the API request fails.
+- Automatically switches to the Mac's built-in voice when an ElevenLabs request fails, including when credits run out.
 - Uses temporary audio files, deleted after normal playback.
 - Runs with Python's standard library and macOS command-line tools. No pip packages.
 
 Voice input is separate. Any dictation tool that types into your assistant can supply the prompt. This project adds speech output, without microphone capture or continuous conversation.
+
+## When ElevenLabs credits run out
+
+Speech continues using the stock macOS voice. If ElevenLabs rejects the request because your credits are exhausted, the script automatically calls the Mac's built-in `say` command with the same summary. No manual switch or second API key is needed, and the fallback does not consume ElevenLabs credits.
+
+The same fallback handles failed requests caused by connection problems or an invalid or missing API key. It uses the Mac's configured default voice, so it will sound different from your ElevenLabs voice.
+
+Each new summary tries ElevenLabs first. Once your credits or access are restored, a successful request uses ElevenLabs again automatically. The script does not monitor your balance or permanently switch providers; a failed request can delay fallback by up to the configured 30-second network timeout.
 
 ## Status
 
