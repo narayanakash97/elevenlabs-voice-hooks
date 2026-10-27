@@ -1,0 +1,14 @@
+.env
+.env.*
+*.key
+*.pem
+credentials*.json
+token*.json
+VOICE_ON
+*.mp3
+*.wav
+*.log
+__pycache__/
+*.pyc
+.venv/
+.DS_Store
